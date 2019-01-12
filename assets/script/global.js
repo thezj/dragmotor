@@ -61,8 +61,7 @@ cc.Class({
         this.toothratio = [0.9, 1.5, 1.9, 2.4, 2.8]
         this.velocity = 0
         setTimeout(() => {
-
-            this.velocity = 20 * Math.pow((1 / (1 + Math.abs(this.viewrevolve.progress - 0.7))), 3)
+            this.velocity = 60 * Math.pow((1 / (1 + Math.abs(this.viewrevolve.progress - 0.7))), 3)
             this.launch = 1
         }, 4000);
     },
@@ -73,7 +72,6 @@ cc.Class({
         this.distance += this.velocity * dt / 2
         if (this.distance >= 800) {
             this.launch = 0
-            
             this.expendtime = (new Date().getTime() - this.begintime) / 1000
         }
         this.viewvelocity.string = `1/2mi成绩：${this.expendtime}\n挡位：${this.gear + 1}\n车速：${Math.round(this.velocity)}\n转速：${Math.round(100 * this.velocity / this.toothratio[this.gear])}`
@@ -100,7 +98,6 @@ cc.Class({
         }
         //加速度随着转速的变化呈现出0-1-0的变化
         let x = (Math.round(100 * this.velocity / this.toothratio[this.gear]) + 1100) / 15000
-        this.accelerate = -4 * Math.pow(x, 2) + 4 * x
-        console.log(this.accelerate)
+        this.accelerate = (-4 * Math.pow(x, 3) + 4 * Math.pow(x, 2)) * 2
     },
 });
